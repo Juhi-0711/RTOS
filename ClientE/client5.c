@@ -48,8 +48,7 @@ int main()
   //while(1)
   {
     //msg_snd.msg_text[0]='b';
-    if(strcmp(msg_snd.msg_text,"bye"))
-      break;
+
     gettimeofday(&start, NULL);
     if (msgsnd (sqid, &msg_snd, sizeof (struct msg_buffer), 0) == -1) 
    {
