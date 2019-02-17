@@ -23,7 +23,7 @@ int main()
   key_t ks,kr; 
 
 
-  ks = ftok("/Users/yashpal/Desktop/Sem8/RTOS/EchoServer/server.c", 65); 
+  ks = ftok("/Users/yashpal/Desktop/Sem8/RTOS/EchoEngine/server.c", 65); 
   kr= ftok("client5",'5');
     //printf("ID ks,kr %d %d\n",ks,kr);
     
@@ -84,13 +84,7 @@ int main()
     printf ("Client: bye\n");
 
      
-   /* if (msgctl (myid, IPC_RMID, NULL) == -1) {
-            perror ("client: msgctl");
-            exit (1);
-    }
 
-    printf ("Client: bye\n");
-    exit(0);*/
 
 
 

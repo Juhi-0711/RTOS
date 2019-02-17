@@ -23,7 +23,7 @@ int main()
   key_t ks,kr; 
 
 
-  ks = ftok("/Users/yashpal/Desktop/Sem8/RTOS/EchoServer/server.c", 65); 
+  ks = ftok("/Users/yashpal/Desktop/Sem8/RTOS/EchoEngine/server.c", 65); 
   kr= ftok("client2",'c');
     //printf("ID ks,kr %d %d\n",ks,kr);
     

@@ -23,7 +23,7 @@ int main()
   key_t ks,kr; 
 
 
-  ks = ftok("/Users/yashpal/Desktop/Sem8/RTOS/EchoServer/server.c", 65); 
+  ks = ftok("/Users/yashpal/Desktop/Sem8/RTOS/EchoEngine/server.c", 65); 
   kr= ftok("client0",'0');
     //printf("ID ks,kr %d %d\n",ks,kr);
     
@@ -47,7 +47,6 @@ int main()
  while(fgets(msg_snd.msg_text, 198, stdin))
  // while(1)
   {
-   // msg_snd.msg_text[0]='d';
      gettimeofday(&start, NULL);
     if (msgsnd (sqid, &msg_snd, sizeof (struct msg_buffer), 0) == -1) 
    {

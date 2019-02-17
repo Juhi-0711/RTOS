@@ -10,7 +10,7 @@
 struct msg_buffer { 
 	int qid;
   long msg_type; 
-  char msg_text[1]; 
+  char msg_text[1024]; 
 }; 
   
 int main() 
@@ -23,7 +23,7 @@ int main()
   key_t ks,kr; 
 
 
-  ks = ftok("/Users/yashpal/Desktop/Sem8/RTOS/EchoServer/server.c", 65); 
+  ks = ftok("/Users/yashpal/Desktop/Sem8/RTOS/EchoEngine/server.c", 65); 
   kr= ftok("client4",'4');
     //printf("ID ks,kr %d %d\n",ks,kr);
     
@@ -81,13 +81,13 @@ int main()
     printf ("Client: bye\n");
 
      
-   /* if (msgctl (myid, IPC_RMID, NULL) == -1) {
+   if (msgctl (myid, IPC_RMID, NULL) == -1) {
             perror ("client: msgctl");
             exit (1);
     }
 
     printf ("Client: bye\n");
-    exit(0);*/
+    exit(0);
 
 
 
