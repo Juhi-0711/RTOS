@@ -10,7 +10,7 @@
 struct msg_buffer { 
 	int qid;
   long msg_type; 
-  char msg_text[1]; 
+  char msg_text[1024]; 
 }; 
   
 int main() 
