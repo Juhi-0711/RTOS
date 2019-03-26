@@ -32,7 +32,7 @@ void comm(int sockfd)
     while(1) 
     { 
         write(sockfd, buffer, sizeof(buffer)); 
-        read(sockfd, msg, sizeof(sensor_data)); 
+        read(sockfd, sensor_data, sizeof(sensor_data)); 
         printf("From Server : %s\n", sensor_data); 
         write_to_file("./sensor_data", sensor_data);
 	    sleep(2);//sync with the sensor data updating frequency 
