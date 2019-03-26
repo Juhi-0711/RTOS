@@ -8,7 +8,7 @@
 #include <stdio.h> 
 #include <time.h>   
 
-#define PORT 9000 
+#define PORT 8080 
 #define SA struct sockaddr 
   
 // commtion designed for chat between client and server. 
@@ -17,14 +17,15 @@ char* read_sensor_data()
     int sensor_data[5];
     char buffer[1000];
     int i=0;
+    char fname[100];
     for(int i = 0; i < 5; i++)
     {
-        sprintf(filename, "sensor%d.txt", i+1);
-        FILE* fp = fopen(filename, "r");
+        sprintf(fname, "sensor%d.txt", i+1);
+        FILE* fp = fopen(fname, "r");
 
         if(fp == NULL) 
         {
-            printf("error in reading: %s\n", filename);
+            printf("error in reading: %s\n", fname);
         }
         
         fscanf(fp, "%d", &(sensor_data[i]));
@@ -39,12 +40,12 @@ void comm(int sockfd)
 { 
     char buffer[1000]; 
     char sensor_info[1000];
-    char filename[100];		
+   		
     // infinite loop for chat 
     while(1)
     {  
         read(sockfd, buffer, sizeof(buffer)); 
-        sensor_info= read_sensor_data();
+        strcpy(sensor_info,read_sensor_data());
         write(sockfd, sensor_info, sizeof(buffer)); 
       	printf("sent to client: %s\n",buffer);
 
@@ -54,7 +55,7 @@ void comm(int sockfd)
 
 int main() 
 { 
-    int sockfd, connfd, len; 
+    int sockfd, connfd; 
     struct sockaddr_in servaddr, cli; 
   
     // socket create and verification 
@@ -87,7 +88,7 @@ int main()
     } 
     else
         printf("Server listening..\n"); 
-    len = sizeof(cli); 
+    socklen_t len = sizeof(cli); 
   
     // Accept the data packet from client and verification 
     connfd = accept(sockfd, (SA*)&cli, &len); 
