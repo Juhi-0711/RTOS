@@ -32,7 +32,7 @@ int main(int argc , char *argv[])
     fd_set fdsRead;  
         
     //a message 
-    char *message = "ECHO Daemon v1.0 \r\n";  
+    char *message = "Hellooo.... \r\n";  
     
     //initialise all client_socket[] to 0 so not checked 
     for (i = 0; i < clientMax; i++)  
