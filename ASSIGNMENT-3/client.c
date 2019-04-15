@@ -89,10 +89,15 @@ int main(int argc, char *argv[])
         printf("Socket successfully created..\n"); 
     bzero(&servaddr, sizeof(servaddr)); 
 
-    //servaddr.sin_family = AF_INET; 
-    servaddr.sin_addr.s_addr = inet_addr("172.16.128.253"); 
-    servaddr.sin_addr.s_addr = INADDR_ANY;
+    servaddr.sin_family = AF_INET; 
     servaddr.sin_port = htons(PORT); 
+       
+    // Convert IPv4 and IPv6 addresses from text to binary form 
+    if(inet_pton(AF_INET, "127.0.0.1", &servaddr.sin_addr)<=0)  
+    { 
+        printf("\nInvalid address/ Address not supported \n"); 
+        return -1; 
+    } 
   
     // connect the client to server 
     if (connect(sockfd, (SA*)&servaddr, sizeof(servaddr)) != 0) { 
