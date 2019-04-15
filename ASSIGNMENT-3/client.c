@@ -6,6 +6,11 @@
 #include <unistd.h>
 #include <time.h>   
 #include <arpa/inet.h>
+#include <pulse/simple.h>
+#include <pulse/error.h>
+#include <pulse/gccmacro.h>
+#include <errno.h>
+#define BUFSIZE 1024
 #define MAX 80 
 #define PORT 8000
 #define SA struct sockaddr
@@ -25,6 +30,21 @@
 }*/
 
 // calls server at regular intervals for data 
+static ssize_t loop_write(int fd, const void*data, size_t size) {
+    ssize_t ret = 0;
+    while (size > 0) 
+    {
+        ssize_t r;
+        if ((r = write(fd, data, size)) < 0)
+            return r;
+        if (r == 0)
+            break;
+        ret += r;
+        data = (const uint8_t*) data + r;
+        size -= (size_t) r;
+    }
+    return ret;
+}
 void comm(int sockfd) 
 { 
     char buffer[1000]; 
@@ -44,11 +64,11 @@ void comm(int sockfd)
     } 
 } 
   
-int main() 
+int main(int argc, char *argv[]) 
 { 
     int sockfd, connfd; 
     struct sockaddr_in servaddr, cli; 
-
+    
 
     static const pa_sample_spec ss = {
         .format = PA_SAMPLE_S16LE,
@@ -89,18 +109,19 @@ int main()
     }
     while(1) 
     { 
-
+        uint8_t buf[BUFSIZE];
+        ssize_t r;
          if(pa_simple_read(s, buf, sizeof(buf), &error) < 0) 
         {
             fprintf(stderr, __FILE__": pa_simple_read() failed: %s\n", pa_strerror(error));
             exit(0);
         }
 
-        if (pa_simple_write(sockfd, buf, (size_t) r, &error) < 0)
-        {
-                    fprintf(stderr, __FILE__": pa_simple_write() failed: %s\n", pa_strerror(error));
-                    goto finish_play;
-        }
+     if (loop_write(sockfd, buf, sizeof(buf)) != sizeof(buf))
+            {
+                fprintf(stderr, __FILE__": write() failed: %s\n", strerror(errno));
+                exit(0);
+}
     }
  
     //comm(sockfd); 
