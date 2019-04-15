@@ -111,13 +111,7 @@ int main(int argc, char *argv[])
     int ret = 1;
     int error;
 
-    if (!(s = pa_simple_new(NULL, argv[0], PA_STREAM_RECORD, NULL, "record", &ss, NULL, NULL, &error))) {
-        fprintf(stderr, __FILE__": pa_simple_new() failed: %s\n", pa_strerror(error));
-        exit(0);
-    }
-
-
-
+ 
 
 
     // socket create and verification 
@@ -146,48 +140,54 @@ int main(int argc, char *argv[])
     // Now server is ready to listen and verification 
     while(1)
     {
-    if ((listen(sockfd, 5)) != 0) { 
-        printf("Listen failed...\n"); 
-        exit(0); 
-    } 
-    else
-        printf("Server listening..\n"); 
-    socklen_t len = sizeof(cli); 
+        if ((listen(sockfd, 5)) != 0)
+        { 
+            printf("Listen failed...\n"); 
+            exit(0); 
+        } 
+        else
+            printf("Server listening..\n"); 
+        socklen_t len = sizeof(cli); 
   
     // Accept the data packet from client and verification 
-    connfd = accept(sockfd, (SA*)&cli, &len); 
-    if (connfd < 0) 
-    { 
-        printf("server acccept failed...\n"); 
-        exit(0); 
-    } 
-    else
-        printf("server acccept the client...\n"); 
+        connfd = accept(sockfd, (SA*)&cli, &len); 
+        if (connfd < 0) 
+        { 
+            printf("server acccept failed...\n"); 
+            exit(0); 
+        } 
+        else
+            printf("server acccept the client...\n"); 
   
     // commtion for chatting between client and server 
     //comm(connfd);
-
-    while(1)
-    {  
-        uint8_t buf[BUFSIZE];
-        ssize_t r;
-        printf("check\n");
-        if ((r = read(connfd, buf, sizeof(buf))) <= 0)
-             {
+        if (!(s = pa_simple_new(NULL, argv[0], PA_STREAM_PLAYBACK, NULL, "playback", &ss, NULL, NULL, &error))) 
+        {
+                fprintf(stderr, __FILE__": pa_simple_new() failed: %s\n", pa_strerror(error));
+               // goto finish_play;
+        }
+        while(1)
+        {  
+            uint8_t buf[BUFSIZE];
+            ssize_t r;
+            //printf("check\n");
+            if ((r = read(connfd, buf, sizeof(buf))) <= 0)
+                 {
                     if (r == 0) /* EOF */
                             break;
                     fprintf(stderr, __FILE__": read() failed: %s\n", strerror(errno));
                     exit(0);
-            }
+                }
 
-        if (pa_simple_write(s, buf, (size_t) r, &error) < 0)
-        {
+            if (pa_simple_write(s, buf, (size_t) r, &error) < 0)
+            {
                 fprintf(stderr, __FILE__": pa_simple_write() failed: %s\n", pa_strerror(error));
                 exit(0);
-        }
+            }
     
-    }
+        }
     // After chatting close the socket 
     close(sockfd); 
     } 
 }
+
