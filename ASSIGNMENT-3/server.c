@@ -7,7 +7,7 @@
 #include <sys/types.h> 
 #include <stdio.h> 
 #include <time.h>   
-
+#include <errno.h>
 #include <pulse/simple.h>
 #include <pulse/error.h>
 #include <pulse/gccmacro.h>
@@ -95,11 +95,11 @@ void comm(int sockfd)
 } 
   
 
-int main() 
+int main(int argc, char *argv[]) 
 { 
     int sockfd, connfd; 
     struct sockaddr_in servaddr, cli; 
-  
+ 
 
 
      static const pa_sample_spec ss = {
@@ -144,7 +144,8 @@ int main()
         printf("Socket successfully binded..\n"); 
   
     // Now server is ready to listen and verification 
-    while(1){
+    while(1)
+    {
     if ((listen(sockfd, 5)) != 0) { 
         printf("Listen failed...\n"); 
         exit(0); 
@@ -155,7 +156,8 @@ int main()
   
     // Accept the data packet from client and verification 
     connfd = accept(sockfd, (SA*)&cli, &len); 
-    if (connfd < 0) { 
+    if (connfd < 0) 
+    { 
         printf("server acccept failed...\n"); 
         exit(0); 
     } 
@@ -167,11 +169,16 @@ int main()
 
     while(1)
     {  
-        if (pa_simple_read(sockfd, buf, sizeof(buf), &error) < 0) 
-        {
-            fprintf(stderr, __FILE__": pa_simple_read() failed: %s\n", pa_strerror(error));
-            exit(0);
-        }
+        uint8_t buf[BUFSIZE];
+        ssize_t r;
+        printf("check\n");
+        if ((r = read(connfd, buf, sizeof(buf))) <= 0)
+             {
+                    if (r == 0) /* EOF */
+                            break;
+                    fprintf(stderr, __FILE__": read() failed: %s\n", strerror(errno));
+                    exit(0);
+            }
 
         if (pa_simple_write(s, buf, (size_t) r, &error) < 0)
         {
@@ -182,5 +189,5 @@ int main()
     }
     // After chatting close the socket 
     close(sockfd); 
-} 
-
+    } 
+}
