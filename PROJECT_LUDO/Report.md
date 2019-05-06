@@ -48,7 +48,8 @@ where '-1' implies that the pawns are still at home </br></br>
 * Waiting for all four clients to arrive
 * Encoding the board
 * Synchronisation between client and server
-* Deadlock conditions, wherein both server and client were waiting for inputs
+* Deadlock conditions, wherein both server and client were waiting for inputs and were at different points of executions
+* We also got junk values while 
 
 
 ## Source Code
