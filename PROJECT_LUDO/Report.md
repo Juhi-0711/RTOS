@@ -24,6 +24,7 @@ The game should have the following set of rules:
 
 ## Implementation
 
+* Real-time implementation of ludo game using threads and socket programming
 * We implemented two separate versions of the game, one that is cross system and one that is one system.
 * We use co-routines to create ludo when we are playing on the same system
 * We use socket programming to communicate between the players and the main server, for the multi-system version.
@@ -47,6 +48,7 @@ where '-1' implies that the pawns are still at home </br></br>
 * Waiting for all four clients to arrive
 * Encoding the board
 * Synchronisation between client and server
+* Deadlock conditions, wherein both server and client were waiting for inputs
 
 
 ## Source Code
