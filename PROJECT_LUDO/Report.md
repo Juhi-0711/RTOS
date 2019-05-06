@@ -1,4 +1,4 @@
-﻿# RTOS Project: Ludo Game
+# RTOS Project: Ludo Game
 -__Group__: 
 * Atharva Deshpande (IMT2015011)
 * Kedar Kulkarni (IMT2015021)
@@ -30,18 +30,7 @@ The game should have the following set of rules:
 * We use to and fro messages between client and server to decide the pawn positions, based upon the decisions of the client
 
 
-```mermaid
-graph LR
-A[Initalise Board] -- Same System-->B(Threads)
-A-- Across Systems-->C(Clients)
-C-- Wait for players-->C
-C-- FCFS scheduling-->D(Client rolls the dice)
-D--check for conditions-->E(Server updates board)
-E-- if you get a six-->D
-E-- turn change-->C
-B-- rotate threads--> F(Play)
-
-```
+![enter image description here](https://lh3.googleusercontent.com/cSjI59Bwy-gMGpI-4DW2UaSydoU7iKQSRm6ZmuQFHDMoaMI86AmEG4anm1_rCDW0UXbhyn_c339h)
 *  The the board is then displayed to the all the clients after every turn
 ![Board for players](https://lh3.googleusercontent.com/lPhlQuczPWA1n_uiEkpjetfD2orKjuU6_LapujnUfPXfKGO_TKX3WcxEEIexdKt_wLnZHNZAn-Ah)
 4*4 matrix represents 4 pawns of 4 players,
@@ -61,5 +50,7 @@ where '-1' implies that the pawns are still at home
 
 ## Source Code
 [Project Link](https://github.com/Juhi-0711/RTOS/tree/master/PROJECT_LUDO)
+
+
 
 
