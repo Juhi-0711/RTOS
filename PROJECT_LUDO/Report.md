@@ -46,6 +46,7 @@ where '-1' implies that the pawns are still at home </br></br>
 * Displaying board to multiple clients
 * Waiting for all four clients to arrive
 * Encoding the board
+* Synchronisation between client and server
 
 
 ## Source Code
