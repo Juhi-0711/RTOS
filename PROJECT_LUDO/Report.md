@@ -49,7 +49,7 @@ where '-1' implies that the pawns are still at home </br></br>
 * Encoding the board
 * Synchronisation between client and server
 * Deadlock conditions, wherein both server and client were waiting for inputs and were at different points of executions
-* We also got junk values while 
+* We also got junk values in the messages
 
 
 ## Source Code
