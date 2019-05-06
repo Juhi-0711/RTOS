@@ -27,14 +27,14 @@ The game should have the following set of rules:
 * We implemented two separate versions of the game, one that is cross system and one that is one system.
 * We use co-routines to create ludo when we are playing on the same system
 * We use socket programming to communicate between the players and the main server, for the multi-system version.
-* We use to and fro messages between client and server to decide the pawn positions, based upon the decisions of the client
-![FC](https://lh3.googleusercontent.com/cSjI59Bwy-gMGpI-4DW2UaSydoU7iKQSRm6ZmuQFHDMoaMI86AmEG4anm1_rCDW0UXbhyn_c339h)
+* We use to and fro messages between client and server to decide the pawn positions, based upon the decisions of the client</br></br>
+![FC](https://lh3.googleusercontent.com/cSjI59Bwy-gMGpI-4DW2UaSydoU7iKQSRm6ZmuQFHDMoaMI86AmEG4anm1_rCDW0UXbhyn_c339h){: width=150 height=100 style="float:left; padding:6px"}
 
 
-*  The the board is then displayed to the all the clients after every turn,where
-4*4 matrix represents 4 pawns of 4 players,
-where '-1' implies that the pawns are still at home 
-![Board for players](https://lh3.googleusercontent.com/lPhlQuczPWA1n_uiEkpjetfD2orKjuU6_LapujnUfPXfKGO_TKX3WcxEEIexdKt_wLnZHNZAn-Ah)
+*  The the board is then displayed to the all the clients after every turn,where</br>
+4*4 matrix represents 4 pawns of 4 players,</br>
+where '-1' implies that the pawns are still at home </br></br>
+![Board for players](https://lh3.googleusercontent.com/lPhlQuczPWA1n_uiEkpjetfD2orKjuU6_LapujnUfPXfKGO_TKX3WcxEEIexdKt_wLnZHNZAn-Ah){: width=150 height=100 style="float:left; padding:6px"}
 ## Gaps in Implementation
 
 * Lack of a GUI based application
